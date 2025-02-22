@@ -8,6 +8,9 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 
+# Ensure jest is executable
+RUN chmod +x ./node_modules/.bin/jest
+
 # Copy application code
 COPY . .
 
@@ -16,3 +19,5 @@ EXPOSE 3000
 
 # Start the application
 CMD ["node", "app.js"]
+
+
