@@ -2,17 +2,16 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  # ============================
-  # BUILD JOB
-  # ============================
   build:
+    name: Build Application
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -26,15 +25,12 @@ jobs:
         run: npm install
 
       - name: Build Application
-        run: echo "Build step completed!"
+        run: npm run build --if-present
 
-  # ============================
-  # TEST JOB
-  # ============================
   test:
+    name: Run Tests
     runs-on: ubuntu-latest
     needs: build
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -47,12 +43,29 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # **NEW STEP: Grant Execute Permissions**
-      - name: Grant Execute Permissions to Jest
-        run: chmod +x node_modules/.bin/jest
-
       - name: Run Tests
-        run: npm test
+        run: npx jest
+
+  upload:
+    name: Upload Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: puneet22
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Image
+        run: docker build -t puneet22/nodejs-ci-app .
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push puneet22/nodejs-ci-app
+
 
 
 
