@@ -1,23 +1,20 @@
 {
   "name": "nodejs-ci-pipeline",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node.js CI Pipeline Example using Express.js and Jest",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Puneet0812/nodejs-ci-pipeline.git"
+    "start": "node app.js",
+    "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Puneet",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Puneet0812/nodejs-ci-pipeline/issues"
-  },
-  "homepage": "https://github.com/Puneet0812/nodejs-ci-pipeline#readme",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
+
