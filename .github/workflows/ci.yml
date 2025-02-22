@@ -30,8 +30,10 @@ jobs:
           node-version: 18
       - name: Install Dependencies
         run: npm install
+      - name: Install Jest Globally
+        run: npm install -g jest
       - name: Run Tests
-        run: npx --no-install jest --forceExit
+        run: jest --forceExit
 
   upload:
     runs-on: ubuntu-latest
@@ -48,6 +50,7 @@ jobs:
         run: docker build -t puneet22/nodejs-ci-app .
       - name: Push Docker Image
         run: docker push puneet22/nodejs-ci-app
+ 
 
 
 
