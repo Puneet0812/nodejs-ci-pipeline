@@ -48,7 +48,8 @@ jobs:
         run: npm install
 
       - name: Run Tests
-        run: npx jest  # <-- Using npx to fix "Permission denied" issue
+        run: node node_modules/jest/bin/jest.js  # <-- FIX: Direct Jest Execution
+
 
 
  
